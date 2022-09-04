@@ -1,0 +1,10 @@
+services:
+  taskd:
+    image: darnellandries/taskd
+    ports:
+      - "53589:53589"
+    volumes:
+      - task-data:/var/lib/taskd
+
+volumes:
+  task-data:

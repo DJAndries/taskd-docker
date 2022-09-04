@@ -1,0 +1,9 @@
+#!/bin/sh
+
+cd /usr/local/share/doc/taskd/pki
+
+rm -rf ./*.pem
+
+./generate 2> /dev/null
+
+cp ./*.pem $TASKDDATA

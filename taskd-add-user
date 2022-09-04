@@ -1,0 +1,12 @@
+#!/bin/sh
+set -e
+
+[ $# -ne 2 ] && {
+  echo "usage: $0 [org] [username]";
+  exit 1;
+}
+
+taskd add org $1 2> /dev/null || true
+taskd add user $1 $2
+
+taskd-generate-client-key $2

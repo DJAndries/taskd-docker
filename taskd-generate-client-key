@@ -1,0 +1,18 @@
+#!/bin/sh
+set -e
+
+[ $# -ne 1 ] && {
+  echo "usage: $0 [username]";
+  exit 1;
+}
+
+cd /usr/local/share/doc/taskd/pki
+./generate.client $1 2> /dev/null
+
+mv ./$1.cert.pem $TASKDDATA
+mv ./$1.key.pem $TASKDDATA
+
+echo -e "\nCopy the following files to the client user data directory."
+echo "- $TASKDDATA/$1.key.pem"
+echo "- $TASKDDATA/$1.cert.pem"
+echo "- $TASKDDATA/ca.cert.pem"

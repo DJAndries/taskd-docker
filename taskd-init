@@ -1,0 +1,50 @@
+#!/bin/sh
+set -e
+
+while [ -z "$TASKD_HOSTNAME" ]; do
+  echo -n "Enter hostname: "
+  read TASKD_HOSTNAME
+done
+
+while [ -z "$TASKD_CERT_ORG" ]; do
+  echo -n "Enter cert organization: "
+  read TASKD_CERT_ORG
+done
+
+while [ -z "$TASKD_CERT_COUNTRY" ]; do
+  echo -n "Enter two letter country code for cert: "
+  read TASKD_CERT_COUNTRY
+done
+
+while [ -z "$TASKD_CERT_STATE" ]; do
+  echo -n "Enter state/province for cert: "
+  read TASKD_CERT_STATE
+done
+
+while [ -z "$TASKD_CERT_LOCALITY" ]; do
+  echo -n "Enter city/locality for cert: "
+  read TASKD_CERT_LOCALITY
+done
+
+taskd init > /dev/null
+taskd config server 0.0.0.0:53589 > /dev/null
+taskd config log /dev/stdout > /dev/null
+
+cd /usr/local/share/doc/taskd/pki
+
+sed -i "s/^CN=.*/CN=\"$TASKD_HOSTNAME\"/g" ./vars
+sed -i "s/^ORGANIZATION=.*/ORGANIZATION=\"$TASKD_CERT_ORG\"/g" ./vars
+sed -i "s/^COUNTRY=.*/COUNTRY=\"$TASKD_CERT_COUNTRY\"/g" ./vars
+sed -i "s/^STATE=.*/STATE=\"$TASKD_CERT_STATE\"/g" ./vars
+sed -i "s/^LOCALITY=.*/LOCALITY=\"$TASKD_CERT_LOCALITY\"/g" ./vars
+
+./generate 2> /dev/null
+
+taskd-generate-server-key
+
+taskd config --force client.cert $TASKDDATA/client.cert.pem > /dev/null
+taskd config --force client.key $TASKDDATA/client.key.pem > /dev/null
+taskd config --force server.cert $TASKDDATA/server.cert.pem > /dev/null
+taskd config --force server.key $TASKDDATA/server.key.pem > /dev/null
+taskd config --force server.crl $TASKDDATA/server.crl.pem > /dev/null
+taskd config --force ca.cert $TASKDDATA/ca.cert.pem
