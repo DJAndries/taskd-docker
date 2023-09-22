@@ -2,6 +2,9 @@
 
 set -e
 
+# Default to 365 days of certificate validity if not set
+TASKD_CERT_EXPIRATION_DAYS="${TASKD_CERT_EXPIRATION_DAYS:-365}"
+
 # /home/taskd/data is supposedly stateful storage as in the same
 # location the main data for taskd is stored.
 if [ ! -f /home/taskd/data/.taskd-init ]; then
