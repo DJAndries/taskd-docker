@@ -30,7 +30,7 @@ taskd init > /dev/null
 taskd config server 0.0.0.0:53589 > /dev/null
 taskd config log /dev/stdout > /dev/null
 
-cd /usr/local/share/doc/taskd/pki
+cd /home/taskd/writeable/pki
 
 sed -i "s/^CN=.*/CN=\"$TASKD_HOSTNAME\"/g" ./vars
 sed -i "s/^ORGANIZATION=.*/ORGANIZATION=\"$TASKD_CERT_ORG\"/g" ./vars

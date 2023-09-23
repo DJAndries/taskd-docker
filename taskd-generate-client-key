@@ -6,7 +6,7 @@ set -e
   exit 1;
 }
 
-cd /usr/local/share/doc/taskd/pki
+cd /home/taskd/writeable/pki
 ./generate.client $1 2> /dev/null
 
 mv ./$1.cert.pem $TASKDDATA

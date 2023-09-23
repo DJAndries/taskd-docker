@@ -35,7 +35,7 @@ RUN apk update && \
     gnutls-utils && \
     adduser taskd --disabled-password --uid 65532
 
-COPY --from=builder /tmp/taskserver/pki /usr/local/share/doc/taskd/pki/
+COPY --from=builder /tmp/taskserver/pki /use/local/share/doc/taskd/pki/
 COPY --from=builder /usr/local/bin/taskd /usr/local/bin/
 COPY --from=builder /usr/local/bin/taskdctl /usr/local/bin/
 COPY taskd-add-user /usr/local/bin/
@@ -47,8 +47,10 @@ COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /usr/local/bin/taskd* && \
     chmod +x /entrypoint.sh && \
     mkdir -p /home/taskd/data && \
+    mkdir -p /home/taskd/writeable && \
     chown taskd /home/taskd/data && \
-    chown taskd /usr/local/share/doc/taskd/pki -R
+    chown taskd /use/local/share/doc/taskd -R && \
+    chown taskd /home/taskd/writeable/ -R
 
 WORKDIR /home/taskd
 
