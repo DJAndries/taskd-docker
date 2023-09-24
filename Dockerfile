@@ -37,7 +37,6 @@ RUN apk update && \
 
 COPY --from=builder /tmp/taskserver/pki /use/local/share/doc/taskd/pki/
 COPY --from=builder /usr/local/bin/taskd /usr/local/bin/
-COPY --from=builder /usr/local/bin/taskdctl /usr/local/bin/
 COPY taskd-add-user /usr/local/bin/
 COPY taskd-generate-client-key /usr/local/bin/
 COPY taskd-generate-server-key /usr/local/bin/
