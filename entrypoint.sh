@@ -13,7 +13,7 @@ cp -r /use/local/share/doc/taskd/pki /home/taskd/writeable/
 
 # /home/taskd/data is supposedly stateful storage as in the same
 # location the main data for taskd is stored.
-if [ ! -f /home/taskd/data/config ]; then
+if [ ! -f $TASKDDATA/config ]; then
     echo "[!] Config file not found, running taskd-init."
     if [ -z "$TASKD_HOSTNAME" ] || [ -z "$TASKD_CERT_ORG" ] || [ -z "$TASKD_CERT_COUNTRY" ] || [ -z "$TASKD_CERT_STATE" ] || [ -z "$TASKD_CERT_LOCALITY" ]; then
 	echo "[-] Error: not all necessary ENV variables provided for taskd-init, aborting."
