@@ -30,13 +30,14 @@ taskd init > /dev/null
 taskd config server 0.0.0.0:53589 > /dev/null
 taskd config log /dev/stdout > /dev/null
 
-cd /usr/local/share/doc/taskd/pki
+cd /home/taskd/writeable/pki
 
 sed -i "s/^CN=.*/CN=\"$TASKD_HOSTNAME\"/g" ./vars
 sed -i "s/^ORGANIZATION=.*/ORGANIZATION=\"$TASKD_CERT_ORG\"/g" ./vars
 sed -i "s/^COUNTRY=.*/COUNTRY=\"$TASKD_CERT_COUNTRY\"/g" ./vars
 sed -i "s/^STATE=.*/STATE=\"$TASKD_CERT_STATE\"/g" ./vars
 sed -i "s/^LOCALITY=.*/LOCALITY=\"$TASKD_CERT_LOCALITY\"/g" ./vars
+sed -i "s/^EXPIRATION_DAYS=.*/EXPIRATION_DAYS=\"$TASKD_CERT_EXPIRATION_DAYS\"/g" ./vars
 
 ./generate 2> /dev/null
 

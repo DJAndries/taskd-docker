@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd /usr/local/share/doc/taskd/pki
+cd /home/taskd/writeable/pki
 
 rm -rf ./*.pem
 

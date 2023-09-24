@@ -1,6 +1,14 @@
 services:
   taskd:
     image: darnellandries/taskd
+    environment:
+      TASKD_HOSTNAME: changeme.example.org
+      TASKD_CERT_ORG: myorg
+      TASKD_CERT_COUNTRY: US
+      TASKD_CERT_STATE: CA
+      TASKD_CERT_LOCALITY: mycity
+      # TASKD_CERT_EXPIRATION_DAYS: 3650
+    # env_file: .env
     ports:
       - "53589:53589"
     volumes:
